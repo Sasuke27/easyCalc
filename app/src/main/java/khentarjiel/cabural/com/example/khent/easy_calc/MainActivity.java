@@ -15,12 +15,14 @@ public class MainActivity extends AppCompatActivity {
     Button addition, subtraction, multiplication, division, reset, exit;
 
 
+
     Operations results = new Operations();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         result = (TextView)findViewById(R.id.txtView_Results);
 
@@ -45,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
                 {
 
+                    if(check_number_if_empty() == true){
 
-
-
-                    Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()), Float.parseFloat(second_number.getText().toString()));
-                    result.setText(String.valueOf(results.add(input)));
+                        Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                        result.setText(String.valueOf(results.add(input)));
+                    }
                 }
                 }
 
@@ -60,27 +62,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                if(check_number_if_empty() == true){
 
-
-                result.setText(String.valueOf(results.sub(input) ));
+                    Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                    result.setText(String.valueOf(results.sub(input)));
+                }
             }
         });
 
         multiplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                if(check_number_if_empty() == true){
 
-                result.setText(String.valueOf(results.mult(input)));
+                    Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                    result.setText(String.valueOf(results.mult(input)));
+                }
             }
         });
 
         division.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
-                result.setText(String.valueOf(results.div(input)));
+                if(check_number_if_empty() == true){
+
+                    Numbers input = new Numbers(Float.parseFloat(first_number.getText().toString()),Float.parseFloat(second_number.getText().toString()));
+                    result.setText(String.valueOf(results.div(input)));
+                }
+
+
             }
         });
 
@@ -102,5 +112,19 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
+    }
+    public boolean check_number_if_empty(){
+
+        if(this.first_number.getText().toString().isEmpty()){
+          //  Toast.makeText(this, "Invalid First Number", Toast.LENGTH_SHORT).show();
+            first_number.setError("Please input valid number.");
+
+            return false;
+        }
+        else if(this.second_number.getText().toString().isEmpty()){
+            second_number.setError("Please input valid number.");
+            return false;
+        }
+        return true;
     }
 }
